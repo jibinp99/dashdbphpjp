@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>PHP Starter Application</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="style.css" />
+    <title>dashDB Connection Test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-	<table>
-		<tr>
-			<td style='width: 30%;'>
-				<img class = 'newappIcon' src='images/newapp-icon.png'>
-			</td>
-			<td>
-				<h1 id = "message"><?php echo "Hello World!"; ?></h1>
-				<p class='description'></p> Thanks for creating a <span class="blue">PHP Starter Application</span>.
-			</td>
-		</tr>
-	</table>
+<?php
+if( getenv( "VCAP_SERVICES" ) )
+{
+    # Get database details from the VCAP_SERVICES environment variable
+    #
+    # *This can only work if you have used the Bluemix dashboard to 
+    # create a connection from your dashDB service to your PHP App.
+    #
+    $details  = json_decode( getenv( "VCAP_SERVICES" ), true );
+    $dsn      = $details [ "dashDB" ][0][ "credentials" ][ "dsn" ];
+    #$ssl_dsn  = "DATABASE=BLUDB;HOSTNAME=dashdb-entry-yp-dal09-07.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=dash12882;PWD=bW0~c4pwB#NF;";#$details [ "dashDB" ][0][ "credentials" ][ "ssldsn" ];
+	
+    # Build the connection string
+    #
+    $driver = "DRIVER={IBM DB2 ODBC DRIVER};";
+    $conn_string = $driver . $dsn;
+	echo "Connecting";
+    $conn = db2_connect( $conn_string, "dash12882", "bW0~c4pwB#NF" );
+	echo $conn;
+    if( $conn )
+    {
+        echo "<p>Connection succeeded.</p>";
+        db2_close( $conn );
+    }
+    else
+    {
+        echo "<p>Connection failed.</p>";
+    }
+}
+/*else
+{
+    echo "<p>No credentials.</p>";
+}*/
+?>
 </body>
 </html>
