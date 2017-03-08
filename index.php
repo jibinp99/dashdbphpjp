@@ -14,7 +14,7 @@ if( getenv( "VCAP_SERVICES" ) )
     # create a connection from your dashDB service to your PHP App.
     #
     $details  = json_decode( getenv( "VCAP_SERVICES" ), true );
-    $dsn      = $details [ "dashDB" ][0][ "credentials" ][ "dsn" ];
+    $dsn      = $details [ "dashDB" ][0][ "credentials" ][ "ssldsn" ];
     #$ssl_dsn  = "DATABASE=BLUDB;HOSTNAME=dashdb-entry-yp-dal09-07.services.dal.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=dash12882;PWD=bW0~c4pwB#NF;";#$details [ "dashDB" ][0][ "credentials" ][ "ssldsn" ];
 	
     # Build the connection string
