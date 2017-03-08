@@ -21,17 +21,13 @@ if( getenv( "VCAP_SERVICES" ) )
     #
     $driver = "DRIVER={IBM DB2 ODBC DRIVER};";
     $conn_string = $driver . $dsn;
-    if(function_exists('odbc_connect')){
-    	echo "Function exist";
-    }else{
-    	echo "Function not exist";
-    }
-    $conn = odbc_connect( $conn_string, "dash12882", "bW0~c4pwB#NF" );
-	echo $conn;
+  
+    $conn = db2_connect( $conn_string, "dash12882", "bW0~c4pwB#NF" );
+	
     if( $conn )
     {
         echo "<p>Connection succeeded.</p>";
-        odbc_close( $conn );
+        db2_close( $conn );
     }
     else
     {
