@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>dashDB Connection Test</title>
+    <title>dashDB Connection Test Branch-b</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
